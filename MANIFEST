@@ -1,0 +1,14 @@
+Build.PL
+Changes
+LICENSE
+MANIFEST
+META.json
+META.yml
+README
+dist.ini
+examples/dist.ini
+lib/Dist/Zilla/Plugin/LoadTests.pm
+t/00-compile.t
+t/release-check-changes.t
+t/release-eol.t
+t/release-pod-syntax.t
