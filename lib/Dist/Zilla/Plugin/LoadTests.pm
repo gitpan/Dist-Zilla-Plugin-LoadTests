@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::LoadTests;
 BEGIN {
-  $Dist::Zilla::Plugin::LoadTests::VERSION = '0.01';
+  $Dist::Zilla::Plugin::LoadTests::VERSION = '0.02';
 }
 
 # ABSTRACT: Common tests to test whether your module loads or not
@@ -11,29 +11,41 @@ use warnings;
 
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
-with    'Dist::Zilla::Role::FileMunger';
+with 'Dist::Zilla::Role::FileMunger';
 
 
 # -- attributes
 
-has module_name => ( is=>'ro', predicate=>'has_module_name' );
+has module        => ( is => 'ro', predicate => 'has_module' );
+has needs_display => ( is => 'ro', predicate => 'has_needs_display' );
 
 # -- public methods
 
 # called by the filemunger role
 sub munge_file {
-    my ($self, $file) = @_;
+	my ( $self, $file ) = @_;
 
-    return unless $file->name eq 't/00-load.t';
+	return unless $file->name eq 't/00-load.t';
 
-    my $module_name = ( $self->has_module_name && $self->module_name )
-        ? ''
-        : '# no fake requested ##';
+	my ( $module, $ok, $fail ) = ( '', '## ', '' );
+	if ( $self->has_module && $self->module ) {
+		$module = $self->module;
+		$ok     = '';
+		$fail   = '## ';
+	}
 
-    # replace strings in the file
-    my $content = $file->content;
-    $content =~ s/LoadTests_MODULE_NAME/$module_name/;
-    $file->content( $content );
+	my $needs_display =
+		$self->has_needs_display && $self->needs_display
+		? q{use Test::NeedsDisplay ':skip_all'}
+		: '';
+
+	# replace strings in the file
+	my $content = $file->content;
+	$content =~ s/LOADTESTS_MODULE/$module/g;
+	$content =~ s/LOADTESTS_OK/$ok/g;
+	$content =~ s/LOADTESTS_FAIL/$fail/;
+	$content =~ s/LOADTESTS_NEEDS_DISPLAY/$needs_display/;
+	$file->content($content);
 }
 
 
@@ -52,14 +64,14 @@ Dist::Zilla::Plugin::LoadTests - Common tests to test whether your module loads 
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
 In your dist.ini:
 
     [LoadTests]
-    module_name      = Your::Module
+    module = Your::Module
 
 =head1 DESCRIPTION
 
@@ -70,7 +82,8 @@ the following files:
 
 =item * t/00-load.t - a standard test to check whether your module loads or not
 
-This test will find check the module specified by C<module_name> and try to load it.
+This test will find check the module specified by C<module> and try to load it.
+The C<needs_display> is useful for GUI tests that need a $ENV{DISPLAY} to work.
 
 =back
 
@@ -78,9 +91,18 @@ This plugin accepts the following options:
 
 =over 4
 
-=item * module_name: a string of the module to check whether it loads or not. No default.
+=item * module (REQUIRED): a string of the module to check whether it loads or not.
+otherwise it will fail.
+
+=item * needs_display (OPTIONAL): a boolean to ensure that tests needing a display
+have one otherwise it will skip all the test. Defaults to false.
 
 =back
+
+=head1 SEE ALSO
+
+L<Test::NeedsDisplay>
+L<Dist::Zilla>
 
 =head1 AUTHOR
 
@@ -101,12 +123,13 @@ ___[ t/00-load.t ]___
 #!perl
 
 use strict;
+use warnings;
 
+LOADTESTS_NEEDS_DISPLAY;
 use Test::More;
-use Test::NeedsDisplay;
 
 plan tests => 1;
 
-use_ok('LOAD_TESTS_MODULE_NAME');
-
-diag("Testing LOAD_TESTS_MODULE_NAME $LOAD_TESTS_MODULE_NAME::VERSION, Perl $], $^X");
+LOADTESTS_FAIL fail 'No module is specified!';
+LOADTESTS_OK   use_ok('LOADTESTS_MODULE');
+LOADTESTS_OK   diag("Testing $LOADTESTS_MODULE::VERSION, Perl $], $^X");

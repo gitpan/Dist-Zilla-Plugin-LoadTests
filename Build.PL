@@ -20,7 +20,7 @@ my %module_build_args = (
     'Ahmad M. Zawawi <ahmad.zawawi@gmail.com>'
   ],
   'dist_name' => 'Dist-Zilla-Plugin-LoadTests',
-  'dist_version' => '0.01',
+  'dist_version' => '0.02',
   'license' => 'perl',
   'module_name' => 'Dist::Zilla::Plugin::LoadTests',
   'recommends' => {},
@@ -29,6 +29,7 @@ my %module_build_args = (
     'Dist::Zilla::Plugin::InlineFiles' => '0',
     'Dist::Zilla::Role::FileMunger' => '0',
     'Moose' => '0',
+    'Test::NeedsDisplay' => '0',
     'perl' => '5.008'
   },
   'script_files' => []

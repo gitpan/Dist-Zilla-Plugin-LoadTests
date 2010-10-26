@@ -20,11 +20,12 @@ requires:
   Dist::Zilla::Plugin::InlineFiles: 0
   Dist::Zilla::Role::FileMunger: 0
   Moose: 0
+  Test::NeedsDisplay: 0
   perl: 5.008
 resources:
   homepage: http://padre.perlide.org
   repository: http://svn.perlide.org/padre/trunk/Dist-Zilla-Plugin-LoadTests/
-version: 0.01
+version: 0.02
 x_Dist_Zilla:
   plugins:
     -
@@ -82,6 +83,14 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::AutoPrereqs
       name: AutoPrereqs
+      version: 4.102342
+    -
+      class: Dist::Zilla::Plugin::Prereqs
+      config:
+        Dist::Zilla::Plugin::Prereqs:
+          phase: runtime
+          type: requires
+      name: Prereqs
       version: 4.102342
     -
       class: Dist::Zilla::Plugin::CheckChangeLog
