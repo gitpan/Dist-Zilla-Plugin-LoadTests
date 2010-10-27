@@ -48,7 +48,7 @@
          "url" : "http://svn.perlide.org/padre/trunk/Dist-Zilla-Plugin-LoadTests/"
       }
    },
-   "version" : "0.02",
+   "version" : "0.03",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
