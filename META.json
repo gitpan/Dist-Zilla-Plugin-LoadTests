@@ -29,7 +29,6 @@
             "Dist::Zilla::Plugin::InlineFiles" : 0,
             "Dist::Zilla::Role::FileMunger" : 0,
             "Moose" : 0,
-            "Test::NeedsDisplay" : 0,
             "perl" : "5.008"
          }
       },
@@ -37,7 +36,8 @@
          "requires" : {
             "File::Find" : 0,
             "File::Temp" : 0,
-            "Test::More" : 0
+            "Test::More" : 0,
+            "Test::NeedsDisplay" : 0
          }
       }
    },
@@ -48,7 +48,7 @@
          "url" : "http://svn.perlide.org/padre/trunk/Dist-Zilla-Plugin-LoadTests/"
       }
    },
-   "version" : "0.03",
+   "version" : "0.04",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -125,11 +125,11 @@
             "class" : "Dist::Zilla::Plugin::Prereqs",
             "config" : {
                "Dist::Zilla::Plugin::Prereqs" : {
-                  "phase" : "runtime",
+                  "phase" : "test",
                   "type" : "requires"
                }
             },
-            "name" : "Prereqs",
+            "name" : "TestRequires",
             "version" : "4.102342"
          },
          {

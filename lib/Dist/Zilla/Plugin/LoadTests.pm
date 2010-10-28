@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::LoadTests;
 BEGIN {
-  $Dist::Zilla::Plugin::LoadTests::VERSION = '0.03';
+  $Dist::Zilla::Plugin::LoadTests::VERSION = '0.04';
 }
 
 # ABSTRACT: Common tests to test whether your module loads or not
@@ -56,7 +56,7 @@ Dist::Zilla::Plugin::LoadTests - Common tests to test whether your module loads 
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 

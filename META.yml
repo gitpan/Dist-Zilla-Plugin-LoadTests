@@ -7,6 +7,7 @@ build_requires:
   File::Temp: 0
   Module::Build: 0.3601
   Test::More: 0
+  Test::NeedsDisplay: 0
 configure_requires:
   Module::Build: 0.3601
 dynamic_config: 0
@@ -20,12 +21,11 @@ requires:
   Dist::Zilla::Plugin::InlineFiles: 0
   Dist::Zilla::Role::FileMunger: 0
   Moose: 0
-  Test::NeedsDisplay: 0
   perl: 5.008
 resources:
   homepage: http://padre.perlide.org
   repository: http://svn.perlide.org/padre/trunk/Dist-Zilla-Plugin-LoadTests/
-version: 0.03
+version: 0.04
 x_Dist_Zilla:
   plugins:
     -
@@ -88,9 +88,9 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::Prereqs
       config:
         Dist::Zilla::Plugin::Prereqs:
-          phase: runtime
+          phase: test
           type: requires
-      name: Prereqs
+      name: TestRequires
       version: 4.102342
     -
       class: Dist::Zilla::Plugin::CheckChangeLog

@@ -1,7 +1,10 @@
 Revision history for Dist::Zilla::Plugin::LoadTests
 
+0.04    2010.10.28
+        Added forgotten Test::NeedsDisplay test dependency (AZAWAWI)
+
 0.03    2010.10.27
-        The 'name' option is used instead removed 'module' option (AZAWAWI)
+        The 'name' option is used instead of the 'module' option (AZAWAWI)
 
 0.02    2010.10.26
         It works now as expected (AZAWAWI)
