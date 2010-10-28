@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::LoadTests;
 BEGIN {
-  $Dist::Zilla::Plugin::LoadTests::VERSION = '0.04';
+  $Dist::Zilla::Plugin::LoadTests::VERSION = '0.05';
 }
 
 # ABSTRACT: Common tests to test whether your module loads or not
@@ -26,12 +26,21 @@ sub munge_file {
 
 	return unless $file->name eq 't/00-load.t';
 
+	# Construct module name from 'name'
 	( my $module = $self->zilla->name ) =~ s/-/::/g;
 
-	my $needs_display =
-		$self->has_needs_display && $self->needs_display
-		? q{use Test::NeedsDisplay ':skip_all'}
-		: '';
+	# Skip all tests if you need a display for this test and $ENV{DISPLAY} is not set
+	my $needs_display = '';
+	if ( $self->has_needs_display && $self->needs_display ) {
+		$needs_display = <<'CODE';
+BEGIN {
+	if( not $ENV{DISPLAY} and not $^O eq 'MSWin32' ) {
+		plan skip_all => 'Needs DISPLAY';
+		exit 0;
+	}
+}
+CODE
+	}
 
 	# replace strings in the file
 	my $content = $file->content;
@@ -56,13 +65,14 @@ Dist::Zilla::Plugin::LoadTests - Common tests to test whether your module loads 
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
 In your dist.ini:
 
     [LoadTests]
+    ; needs_display = 1
 
 =head1 DESCRIPTION
 
@@ -87,10 +97,6 @@ have one otherwise it will skip all the test. Defaults to false.
 
 =back
 
-=head1 SEE ALSO
-
-L<Test::NeedsDisplay>
-
 =head1 AUTHOR
 
 Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
@@ -112,8 +118,9 @@ ___[ t/00-load.t ]___
 use strict;
 use warnings;
 
-LOADTESTS_NEEDS_DISPLAY;
 use Test::More;
+
+LOADTESTS_NEEDS_DISPLAY
 
 plan tests => 1;
 

@@ -10,8 +10,7 @@ my %module_build_args = (
     'File::Find' => '0',
     'File::Temp' => '0',
     'Module::Build' => '0.3601',
-    'Test::More' => '0',
-    'Test::NeedsDisplay' => '0'
+    'Test::More' => '0'
   },
   'configure_requires' => {
     'Module::Build' => '0.3601'
@@ -21,7 +20,7 @@ my %module_build_args = (
     'Ahmad M. Zawawi <ahmad.zawawi@gmail.com>'
   ],
   'dist_name' => 'Dist-Zilla-Plugin-LoadTests',
-  'dist_version' => '0.04',
+  'dist_version' => '0.05',
   'license' => 'perl',
   'module_name' => 'Dist::Zilla::Plugin::LoadTests',
   'recommends' => {},
