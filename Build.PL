@@ -20,7 +20,7 @@ my %module_build_args = (
     'Ahmad M. Zawawi <ahmad.zawawi@gmail.com>'
   ],
   'dist_name' => 'Dist-Zilla-Plugin-LoadTests',
-  'dist_version' => '0.05',
+  'dist_version' => '0.06',
   'license' => 'perl',
   'module_name' => 'Dist::Zilla::Plugin::LoadTests',
   'recommends' => {},

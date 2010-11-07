@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::LoadTests;
 BEGIN {
-  $Dist::Zilla::Plugin::LoadTests::VERSION = '0.05';
+  $Dist::Zilla::Plugin::LoadTests::VERSION = '0.06';
 }
 
 # ABSTRACT: Common tests to test whether your module loads or not
@@ -65,7 +65,7 @@ Dist::Zilla::Plugin::LoadTests - Common tests to test whether your module loads 
 
 =head1 VERSION
 
-version 0.05
+version 0.06
 
 =head1 SYNOPSIS
 
@@ -96,6 +96,10 @@ This plugin accepts the following options:
 have one otherwise it will skip all the test. Defaults to false.
 
 =back
+
+=head1 SEE ALSO
+
+If you need a more generic but slower test for all the packages in your distribution, please use L<Dist::Zilla::Plugin::CompileTests>.
 
 =head1 AUTHOR
 
